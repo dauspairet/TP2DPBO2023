@@ -26,7 +26,7 @@ Program ini terdapat `8 class` yang berperan sebagai main pada program ini, yait
 
 ## Desain
 1. Login
-2. 
+
 ![login](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/login.jpg)
 
 2. Sign Up
@@ -39,7 +39,7 @@ Program ini terdapat `8 class` yang berperan sebagai main pada program ini, yait
 
 4. Add
 
-![add](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/add.jpg)
+![add](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/upload.jpg)
 
 5. Logout
 
@@ -47,7 +47,25 @@ Program ini terdapat `8 class` yang berperan sebagai main pada program ini, yait
 
 ## Alur Program
 1. Login
+
+Jika _user_ mempunyai akun maka dapat menggunakan metode _login_ untuk mengakses _home_. _User_ akan mengisi idAccountnya beserta dengan passwordnya. Jika _Textfield_ kosong, salah idAccount atau salah password maka _user_ tidak bisa mengakses _home_. Jika berhasil _login_ maka data akan disimpan di database account dan user_admin.
+
 2. Sign Up
-3. Home
-4. Add
-5. Logout
+
+Jika _user_ belum mempunyai akun maka dapat menggunakan metode _sign up_ untuk melakukan _login_ kemudian mengakses _home_. _User_ akan diminta untuk mengisi idAccount beserta dengan passwordnya. Jika idAccount ada yang sama maka akan ada _pop up_ untuk meminta _user_ mengganti idAccount tersebut. Jika berhasil _Sign Up_ maka data akan disimpan di database account dan user_admin.
+
+4. Home
+
+Halaman utama yang dapat diakses oleh _user_ jika melakukan telah _login_.
+
+5. Add
+
+Halaman untuk mengirim gambar, id, dan nama kriminal. User akan diminta untuk mengisi id kriminal, nama kriminal, dan foto kriminal. Jika berhasil melakukan _upload_ maka data akan disimpan di database images.
+
+6. Logout
+
+_User_ keluar dari akunnya dengan menekan tombol _logout_.
+
+## User Login
+`id`        123
+`password`  123
