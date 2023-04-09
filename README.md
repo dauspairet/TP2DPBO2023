@@ -14,9 +14,9 @@ Buatlah program Java yang terkoneksi dengan database MySQL. Berikut spesifikasi 
 * Boleh login dan/atau register. Tidak perlu ada enkripsi password
 
 ## Design Program
-Program ini terdapat `8 class` yang berperan sebagai main pada program ini, yaitu `class login`. Berikut keterangan masing-masing class:
+Berikut keterangan masing-masing class:
 - `DbConnection` : Class yang berfungsi untuk melakukan koneksi ke database. Database yang digunakan dalam program ini, yaitu Mysql.
-- `Login` : Class form yang berfungsi untuk melakukan proses _login_. Proses ini hanya dapat dilakukan ketika _user_ telah mempunyai akun atau telah melakukan _sign up_
+- `Login` _(main class)_ : Class form yang berfungsi untuk melakukan proses _login_. Proses ini hanya dapat dilakukan ketika _user_ telah mempunyai akun atau telah melakukan _sign up_
 - `SignUp` : Class form yang berfungsi untuk melakukan proses _sign up_. Proses ini dilakukan ketika user belum mempunyai akun.
 - `JPanelCard` : Class form yang berfungsi untuk menampilkan daftar card yang berisi daftar kriminal yang terdapat pada _database_.
 - `Card` : Class form yang berfungsi untuk menampilkan data kriminal yang terdiri dari idCriminal dan nama.
