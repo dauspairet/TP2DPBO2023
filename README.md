@@ -31,6 +31,4 @@ Program ini terdapat `8 class` yang berperan sebagai main pada program ini, yait
 2. Sign Up
 3. Home
 4. Add
-5. Edit
-6. Delete
-7. Logout
+5. Logout
