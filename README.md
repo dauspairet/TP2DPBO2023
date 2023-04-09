@@ -26,18 +26,23 @@ Program ini terdapat `8 class` yang berperan sebagai main pada program ini, yait
 
 ## Desain
 1. Login
+2. 
 ![login](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/login.jpg)
 
 2. Sign Up
+
 ![signup](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/sign%20up.jpg)
 
 3. Home
+
 ![home](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/home.jpg)
 
 4. Add
+
 ![add](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/add.jpg)
 
 5. Logout
+
 ![logout](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/logout.jpg)
 
 ## Alur Program
