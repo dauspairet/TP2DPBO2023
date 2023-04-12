@@ -11,7 +11,7 @@ Buatlah program Java yang terkoneksi dengan database MySQL. Berikut spesifikasi 
 - Terdapat pergantian screen pada UI
 - Terdapat button navigasi untuk beralih screen
 - List data ditampilkan menggunakan card (JPanel)
-* Boleh login dan/atau register. Tidak perlu ada enkripsi password
+- Boleh login dan/atau register. Tidak perlu ada enkripsi password
 
 ## Design Program
 Berikut keterangan masing-masing class:
@@ -49,7 +49,7 @@ Berikut keterangan masing-masing class:
 
 6. Delete
 
-![delete](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/Delete.jpg)
+![delete](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/delete.jpg)
 
 7. Logout
 
