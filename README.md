@@ -45,7 +45,11 @@ Berikut keterangan masing-masing class:
 
 5. Edit
 
+![edit](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/Edit.jpg)
+
 6. Delete
+
+![delete](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/Delete.jpg)
 
 7. Logout
 
@@ -53,8 +57,11 @@ Berikut keterangan masing-masing class:
 
 8. List Account
 
+![listaccount](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/list%20account.jpg.jpg)
 
 9. List Criminal
+
+![listcriminal](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/list%20criminal.jpg.jpg)
 
 ## Alur Program
 1. Login
