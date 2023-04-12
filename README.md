@@ -26,6 +26,10 @@ Berikut keterangan masing-masing class:
 - `Edit` : Class form yang berfungsi untuk mengedit data.
 - `List`: Class form yang berfungsi untuk menampilkan data berupa tabel.
 
+## UML
+
+## ERD
+
 ## Desain
 1. Login
 
@@ -72,15 +76,31 @@ Jika _user_ mempunyai akun maka dapat menggunakan metode _login_ untuk mengakses
 
 Jika _user_ belum mempunyai akun maka dapat menggunakan metode _sign up_ untuk melakukan _login_ kemudian mengakses _home_. _User_ akan diminta untuk mengisi idAccount beserta dengan passwordnya. Jika idAccount ada yang sama maka akan ada _pop up_ untuk meminta _user_ mengganti idAccount tersebut. Jika berhasil _Sign Up_ maka data akan disimpan di database account dan user_admin.
 
-4. Home
+3. Home
 
 Halaman utama yang dapat diakses oleh _user_ jika melakukan telah _login_.
 
-5. Add
+4. Add
 
 Halaman untuk mengirim gambar, id, dan nama kriminal. User akan diminta untuk mengisi id kriminal, nama kriminal, dan foto kriminal. Jika berhasil melakukan _upload_ maka data akan disimpan di database images.
 
-6. Logout
+5. Edit
+
+Halaman untuk mengedit gambar, id, dan nama kriminal. User akan diminta untuk mengisi id kriminal, nama kriminal, dan foto kriminal. Jika berhasil melakukan edit maka data akan mengupdate database images.
+
+6. Delete
+
+Halaman untuk menghapus gambar, id, dan nama kriminal. Jika berhasil menghapus maka data akan terhapus dari database images.
+
+7. List Account
+
+Halaman untuk menampilkan daftar _id account_ yang terdaftar pada database.
+
+8. List Criminal
+
+Halaman untuk menampilkan daftar _criminal_ yang ada pada database.
+
+9. Logout
 
 _User_ keluar dari akunnya dengan menekan tombol _logout_.
 
