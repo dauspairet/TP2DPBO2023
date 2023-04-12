@@ -23,6 +23,8 @@ Berikut keterangan masing-masing class:
 - `Add` : Class form yang berfungsi untuk proses penambahan data pada _database_.
 - `UserAccount` : Class yang berfungsi untuk menyimpan id account.
 - `Criminal` : Class yang berfungsi untuk menyimpan atribut kriminal.
+- `Edit` : Class form yang berfungsi untuk mengedit data.
+- `List`: Class form yang berfungsi untuk menampilkan data berupa tabel.
 
 ## Desain
 1. Login
@@ -41,9 +43,18 @@ Berikut keterangan masing-masing class:
 
 ![add](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/upload.jpg)
 
-5. Logout
+5. Edit
+
+6. Delete
+
+7. Logout
 
 ![logout](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/logout.jpg)
+
+8. List Account
+
+
+9. List Criminal
 
 ## Alur Program
 1. Login
