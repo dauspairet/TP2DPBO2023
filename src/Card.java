@@ -3,6 +3,8 @@
 // untuk keberkahanNya maka saya tidak melakukan kecurangan 
 // seperti yang telah dispesifikasikan. Aamiin.
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,28 +16,37 @@ import javax.swing.JOptionPane;
  * @author Firdaus
  */
 public class Card extends javax.swing.JPanel {
-    // Properties
-    private int id_criminal;
-    private String name;
-    private byte[] picture;
-    private JPanelCard panelCard;
-    private DbConnection db;
+    // Attributes
+    String id_criminal, name, reward;
+    byte[] image;
+    JPanelCard panelCard;
             
     /**
      * Creates new form Card
      */
     public Card() {
         initComponents();
-        
-        // Make connection to db
-        db = new DbConnection();
     }
     
     // Construct
-    public Card(int id_criminal, String name, byte[] image) {
+    public Card(String id_criminal, String name, String reward, byte[] image, JPanelCard panelCard) {
+        initComponents();
+        
+        // Set text
+        lbl_isi_idCriminal.setText(id_criminal);
+        lbl_isi_name.setText(name);
+        lbl_reward.setText(reward);
+        
+        // Set image
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(128,128,Image.SCALE_SMOOTH));
+        lbl_image.setIcon(imageIcon);
+        
         this.id_criminal = id_criminal;
         this.name = name;
-        this.picture = image;
+        this.reward = reward;
+        this.image = image;
+        
+        setPanelCard(panelCard);
     }
     
     // Reference instance JPanelCard
@@ -43,6 +54,30 @@ public class Card extends javax.swing.JPanel {
         this.panelCard = panelCard;
     }
     
+    public void delete() {
+        // Delete from id
+        id_criminal = lbl_isi_idCriminal.getText();
+
+        // Confirm before deleting
+        int confirm = JOptionPane.showConfirmDialog(this, "Delete?", "Konfirmasi Delete", JOptionPane.YES_NO_OPTION);
+        
+        // If confirmed
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                // Delete the record from the database
+                DbConnection db = new DbConnection();
+                db.deleteCard(id_criminal);
+
+                // Remove the card from the panel
+                panelCard.remove(this);
+                panelCard.revalidate();
+                panelCard.repaint();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,47 +90,27 @@ public class Card extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         lbl_idCriminal = new javax.swing.JLabel();
-        lbl_name = new javax.swing.JLabel();
-        btnadd = new javax.swing.JButton();
-        btnedit = new javax.swing.JButton();
         lbl_isi_idCriminal = new javax.swing.JLabel();
         lbl_isi_name = new javax.swing.JLabel();
         btndelete = new javax.swing.JButton();
+        lbl_image = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lbl_reward = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbl_idCriminal.setText("ID");
 
-        lbl_name.setText("Name");
-        lbl_name.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        btnadd.setText("Add");
-        btnadd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnaddActionPerformed(evt);
-            }
-        });
-
-        btnedit.setText("Edit");
-
         lbl_isi_idCriminal.setText("jLabel2");
 
-        lbl_isi_name.setText("jLabel3");
+        lbl_isi_name.setFont(new java.awt.Font("Perpetua Titling MT", 1, 18)); // NOI18N
+        lbl_isi_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_isi_name.setText("nama");
 
         btndelete.setText("Delete");
         btndelete.addActionListener(new java.awt.event.ActionListener() {
@@ -104,51 +119,76 @@ public class Card extends javax.swing.JPanel {
             }
         });
 
+        lbl_image.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 255, 102)));
+
+        jLabel2.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("WANTED");
+        jLabel2.setToolTipText("");
+        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(255, 51, 51)));
+
+        jLabel3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        jLabel3.setText("REWARD $");
+
+        jLabel5.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("DEAD OR ALIVE");
+
+        lbl_reward.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        lbl_reward.setText("99999");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnadd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnedit)
-                        .addGap(18, 18, 18)
-                        .addComponent(btndelete))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lbl_idCriminal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_isi_idCriminal, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                            .addComponent(lbl_isi_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(186, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_reward))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(148, 148, 148)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lbl_image, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(27, 27, 27)
+                                    .addComponent(lbl_idCriminal)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lbl_isi_idCriminal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(166, 166, 166)
+                            .addComponent(btndelete))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(85, 85, 85)
+                            .addComponent(lbl_isi_name, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_idCriminal)
-                            .addComponent(lbl_isi_idCriminal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_isi_name))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnadd)
-                            .addComponent(btnedit)
-                            .addComponent(btndelete)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lbl_reward))
+                .addGap(27, 27, 27)
+                .addComponent(lbl_image, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_idCriminal)
+                    .addComponent(lbl_isi_idCriminal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_isi_name, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(btndelete)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -164,37 +204,32 @@ public class Card extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        // TODO add your handling code here:
-
-        try{
-            // Hide JPanelCard
-            panelCard.setVisible(false);
-            
-            // Open AddForm
-            new Add().setVisible(true);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-        
-    }//GEN-LAST:event_btnaddActionPerformed
-
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         // TODO add your handling code here:
+        // Delete data
+        delete();
+        
+        // Refresh page
+        String idAccount = UserAccount.accountId;
+        panelCard.setVisible(false);
+        panelCard = new JPanelCard();
+        panelCard.setAccountId(idAccount);
+        panelCard.setVisible(true);
     }//GEN-LAST:event_btndeleteActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnadd;
     private javax.swing.JButton btndelete;
-    private javax.swing.JButton btnedit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_idCriminal;
+    private javax.swing.JLabel lbl_image;
     private javax.swing.JLabel lbl_isi_idCriminal;
     private javax.swing.JLabel lbl_isi_name;
-    private javax.swing.JLabel lbl_name;
+    private javax.swing.JLabel lbl_reward;
     // End of variables declaration//GEN-END:variables
 }

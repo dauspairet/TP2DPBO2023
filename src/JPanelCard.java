@@ -8,8 +8,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import java.awt.CardLayout;
+import java.sql.PreparedStatement;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 /**
  *
@@ -32,11 +35,50 @@ public class JPanelCard extends javax.swing.JFrame {
     
     // Set data panel
     private void setPanel() {
+        
+        // Select database images
+        PreparedStatement ok;
+        ResultSet rs;
+        String temp = "SELECT * FROM `images`";
+        
+        // Remove component on mainPanel
         mainPanel.removeAll();
+        
+        // Set layout
         mainPanel.setLayout(new GridLayout(0, 1));
-        Card card = new Card();
-        card.setPanelCard(this);
-        mainPanel.add(card);
+        try{
+            
+            ok = DbConnection.configDB().prepareStatement(temp);
+            rs = ok.executeQuery();
+            
+            // Mark if theres a data on the database
+            boolean hasData = false;
+            
+            // Receive data
+            while(rs.next()){
+                
+                // Mark theres data on the database
+                hasData = true;
+                
+                // Get the data attribute on the database
+                String id_criminal = rs.getString("id_criminal");
+                String name = rs.getString("name");
+                String reward = rs.getString("reward");
+                byte[] image = rs.getBytes("image");
+                
+                // Set new card
+                Card card = new Card(id_criminal, name, reward, image, this);
+                card.setPanelCard(this);
+                mainPanel.add(card);
+            }
+            // Set edit button to visible if theres a data
+            btn_edit.setVisible(hasData);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+        // Refresh the layout on the mainPanel
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -55,18 +97,23 @@ public class JPanelCard extends javax.swing.JFrame {
         label_welcome = new javax.swing.JLabel();
         label_idAccount = new javax.swing.JLabel();
         btnlogout = new javax.swing.JButton();
+        btn_add = new javax.swing.JButton();
+        btn_edit = new javax.swing.JButton();
+        btn_list = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 638, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 793, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(mainPanel);
@@ -84,27 +131,52 @@ public class JPanelCard extends javax.swing.JFrame {
             }
         });
 
+        btn_add.setText("Add");
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
+
+        btn_edit.setText("Edit");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
+
+        btn_list.setText("List");
+        btn_list.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_listActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label_idAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label_welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnlogout))))
+                        .addComponent(label_welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnlogout))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(label_idAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_add)
+                        .addGap(28, 28, 28)
+                        .addComponent(btn_edit)
+                        .addGap(29, 29, 29)
+                        .addComponent(btn_list)
+                        .addGap(0, 109, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,10 +186,14 @@ public class JPanelCard extends javax.swing.JFrame {
                     .addComponent(label_welcome)
                     .addComponent(btnlogout))
                 .addGap(1, 1, 1)
-                .addComponent(label_idAccount)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_idAccount)
+                    .addComponent(btn_add)
+                    .addComponent(btn_edit)
+                    .addComponent(btn_list))
+                .addGap(49, 49, 49)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,16 +201,61 @@ public class JPanelCard extends javax.swing.JFrame {
 
     private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         // TODO add your handling code here:
+        
+        // Logout Confirmation
         int promptKonfirmasi = JOptionPane.showConfirmDialog(null, "Logout?", "Prompt Logout", JOptionPane.YES_NO_OPTION);
         if (promptKonfirmasi == JOptionPane.YES_OPTION) {
             // Close the current form
             this.setVisible(false);
+            
             // Go back to login form
             new Login().setVisible(true);
         }
         
         
     }//GEN-LAST:event_btnlogoutActionPerformed
+
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+        // TODO add your handling code here:
+        try{
+            // Close this form
+            this.setVisible(false);
+            
+            // Open Add form
+            new Add().setVisible(true);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_addActionPerformed
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        // TODO add your handling code here
+       try{
+            // Close this form
+            this.setVisible(false);
+
+            // Open edit form
+            new Edit().setVisible(true);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listActionPerformed
+        // TODO add your handling code here:
+        try{
+            // Close this form
+            this.setVisible(false);
+
+            // Open edit form
+            new List().setVisible(true);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_listActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +293,9 @@ public class JPanelCard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_add;
+    private javax.swing.JButton btn_edit;
+    private javax.swing.JButton btn_list;
     private javax.swing.JButton btnlogout;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label_idAccount;
