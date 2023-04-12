@@ -28,7 +28,11 @@ Berikut keterangan masing-masing class:
 
 ## UML
 
+![uml](https://github.com/dauspairet/TP2DPBO2023/raw/main/UML.jpg)
+
 ## ERD
+
+![uml](https://github.com/dauspairet/TP2DPBO2023/raw/main/erd.jpg)
 
 ## Desain
 1. Login
