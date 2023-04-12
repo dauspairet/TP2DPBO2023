@@ -57,11 +57,11 @@ Berikut keterangan masing-masing class:
 
 8. List Account
 
-![listaccount](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/list%20account.jpg.jpg)
+![listaccount](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/list%20account.jpg)
 
 9. List Criminal
 
-![listcriminal](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/list%20criminal.jpg.jpg)
+![listcriminal](https://github.com/dauspairet/TP2DPBO2023/raw/main/Screenshot/list%20criminal.jpg)
 
 ## Alur Program
 1. Login
